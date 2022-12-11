@@ -1,0 +1,12 @@
+
+<mat-toolbar>
+  <div class="collapse d-flex justify-content-between  navbar-collapse pt-2" id="navbarSupportedContent">
+    <a class="navbar-brand" [routerLink]="['/home']">ForumTalks</a>
+      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu #menu="matMenu">
+        <button (click)="logOut()"  mat-menu-item>Log Out</button>
+      </mat-menu>
+      
+  </div>
+  
+</mat-toolbar>

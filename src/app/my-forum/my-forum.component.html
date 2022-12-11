@@ -1,0 +1,8 @@
+<div *ngFor="let forum of forums">
+    <mat-card [routerLink]="['/home/forum',forum.id]">
+        <mat-card-title>{{forum.name}}</mat-card-title>
+        <mat-card-subtitle>{{forum.ownerId}}</mat-card-subtitle>
+        <mat-card-content>{{forum.description}}</mat-card-content>
+    </mat-card>
+</div>
+<button mat-button class="sticky"> Create new Forum</button>

@@ -1,0 +1,15 @@
+<div>
+    <h1>{{post!.title}}</h1>
+    <h3>{{post!.description}}</h3>
+    <div *ngFor="let comment of comments">
+        <mat-card>
+            <mat-card-header [routerLink]="['/home/post/',comment.id]">
+                <mat-card-title>{{comment.userId}}</mat-card-title>
+            </mat-card-header>
+            <button *ngIf="currentUser == comment.userId" mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+            <mat-menu #menu="matMenu">
+                <button (click)="deleteComment(comment.id)" mat-menu-item>Delete</button>
+            </mat-menu>
+        </mat-card>
+    </div>
+</div>

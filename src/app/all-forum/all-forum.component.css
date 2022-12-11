@@ -1,0 +1,9 @@
+mat-card{
+    padding: 10px;
+}
+.sticky{
+    position: fixed;
+    bottom: 2px;
+    right: 2px;
+    z-index: 2;
+}
