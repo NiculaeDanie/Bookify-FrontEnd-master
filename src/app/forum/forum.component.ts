@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { Forum, Post } from '../Dtos/Post';
+import { AuthenticationService } from '../services/authentication.service';
 import { ForumService } from '../services/forum.service';
 import { PostService } from '../services/post.service';
 
@@ -16,7 +17,7 @@ export class ForumComponent implements OnInit {
   forumId: string = "";
   forum?: Forum;
   posts: Post[] = [];
-  constructor(private route: ActivatedRoute, private forumService: ForumService, private postService: PostService, private dialogService: MatDialog) { }
+  constructor(private route: ActivatedRoute, private forumService: ForumService, private postService: PostService, private dialogService: MatDialog, private userService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.currentUser = localStorage.getItem('id')!;
@@ -29,6 +30,11 @@ export class ForumComponent implements OnInit {
     this.postService.getAll(this.forumId).subscribe(
       (Response: Post[]) => {
         this.posts = Response;
+        this.posts.forEach( post => {
+          this.userService.getUsername(post.ownerId).subscribe( response => {
+            post.userName=response.name;
+          })
+        });
       }
     )
   }

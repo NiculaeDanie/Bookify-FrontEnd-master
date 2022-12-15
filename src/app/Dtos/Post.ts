@@ -4,6 +4,7 @@ export interface Forum {
     description: string;
     price: number;
     ownerId: string;
+    userName?: string;
 }
 
 export interface Post {
@@ -11,6 +12,7 @@ export interface Post {
     title: string;
     description: string;
     ownerId: string;
+    userName?: string;
 }
 
 export interface Comment{
@@ -18,4 +20,5 @@ export interface Comment{
     text: string;
     likeCount: number;
     userId: string;
+    userName?: string;
 }

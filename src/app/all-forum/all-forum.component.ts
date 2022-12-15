@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Route, Router } from '@angular/router';
 import { CreateForumComponent } from '../create-forum/create-forum.component';
 import { Forum } from '../Dtos/Post';
+import { AuthenticationService } from '../services/authentication.service';
 import { ForumService } from '../services/forum.service';
 
 @Component({
@@ -12,12 +13,17 @@ import { ForumService } from '../services/forum.service';
 })
 export class AllForumComponent implements OnInit {
   forums: Forum[] = [];
-  constructor(private forumService: ForumService, private router: Router, private dialogService: MatDialog) { }
+  constructor(private forumService: ForumService, private router: Router, private dialogService: MatDialog, private userService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.forumService.getAll().subscribe(
       (response: Forum[]) => {
         this.forums = response;
+        this.forums.forEach( forum => {
+          this.userService.getUsername(forum.ownerId).subscribe( response => {
+            forum.userName=response.name;
+          })
+        });
       }
     )
   }

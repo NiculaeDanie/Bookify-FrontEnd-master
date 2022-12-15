@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Post, Comment } from '../Dtos/Post';
+import { AuthenticationService } from '../services/authentication.service';
 import { CommentService } from '../services/comment.service';
 import { PostService } from '../services/post.service';
 
@@ -18,7 +19,7 @@ export class PostComponent implements OnInit {
   commentForm = new FormGroup({
     comment: new FormControl('', Validators.required)
   });
-  constructor(private route: ActivatedRoute, private postService: PostService, private commentService: CommentService) { }
+  constructor(private route: ActivatedRoute, private postService: PostService, private commentService: CommentService, private userService: AuthenticationService) { }
   
   ngOnInit(): void {
     this.currentUser = localStorage.getItem('id')!;
@@ -31,6 +32,11 @@ export class PostComponent implements OnInit {
     this.commentService.getAll(this.postId).subscribe(
       (Response: Comment[]) => {
         this.comments = Response;
+        this.comments.forEach( comment => {
+          this.userService.getUsername(comment.userId).subscribe( response => {
+            comment.userName=response.name;
+          })
+        });
       }
     );
   }

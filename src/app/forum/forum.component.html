@@ -5,7 +5,7 @@
         <mat-card>
             <mat-card-header [routerLink]="['/home/post/',post.id]">
                 <mat-card-title>{{post.title}}</mat-card-title>
-                <mat-card-subtitle>{{post.ownerId}}</mat-card-subtitle>
+                <mat-card-subtitle>{{post.userName}}</mat-card-subtitle>
             </mat-card-header>
             <button *ngIf="currentUser == post.ownerId" mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
             <mat-menu #menu="matMenu">

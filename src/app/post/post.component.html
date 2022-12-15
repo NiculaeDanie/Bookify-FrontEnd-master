@@ -12,7 +12,7 @@
     <div class="comment" *ngFor="let comment of comments">
         <mat-card>
             <mat-card-header>
-                <mat-card-title>{{comment.userId}}</mat-card-title>
+                <mat-card-title>{{comment.userName}}</mat-card-title>
                 <button class='menu-butt' *ngIf="currentUser == comment.userId" mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
                 <mat-menu #menu="matMenu">
                     <button (click)="deleteComment(comment.id)" mat-menu-item>Delete</button>

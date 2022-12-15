@@ -31,6 +31,9 @@ export class AuthenticationService {
   public getEmail(): string{
     return localStorage.getItem('email')!;
   }
+  public getUsername(id: string): Observable<any>{
+    return this.http.get<string>(this.serverUrl+'/User/username/'+ id);
+  }
   public getId(): string{
     return localStorage.getItem('id')!;
   }

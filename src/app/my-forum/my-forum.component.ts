@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateForumComponent } from '../create-forum/create-forum.component';
 import { Forum } from '../Dtos/Post';
+import { AuthenticationService } from '../services/authentication.service';
 import { ForumService } from '../services/forum.service';
 
 @Component({
@@ -11,12 +12,17 @@ import { ForumService } from '../services/forum.service';
 })
 export class MyForumComponent implements OnInit {
   forums: Forum[] = [];
-  constructor(private forumService: ForumService, private dialogService: MatDialog) { }
+  constructor(private forumService: ForumService, private dialogService: MatDialog, private userService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.forumService.getMy().subscribe(
       (response: Forum[]) => {
         this.forums = response;
+        this.forums.forEach( forum => {
+          this.userService.getUsername(forum.ownerId).subscribe( response => {
+            forum.userName=response.name;
+          })
+        });
       }
     );
   }
