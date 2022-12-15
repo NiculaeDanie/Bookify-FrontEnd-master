@@ -1,0 +1,24 @@
+
+    <h1>Create Forum</h1>
+    <mat-dialog-content>
+       <form [formGroup]="forumForm">
+        <mat-form-field [style.width.px]="500" appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea cdkTextareaAutosize cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="10" matInput formControlName="description"></textarea>
+        </mat-form-field>
+        <mat-form-field [style.width.px]="100" appearance="fill">
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="price">
+        </mat-form-field>
+       </form>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close (click)="cancel()">Cancel</button>
+        <button mat-button mat-dialog-close cdkFocusInitial [mat-dialog-close]="forumForm" [disabled]="!forumForm.valid">Ok</button>
+    </mat-dialog-actions>
+

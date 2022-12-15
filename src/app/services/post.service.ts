@@ -22,7 +22,7 @@ export class PostService {
   public updatePost(ownerId: string, post: Post): Observable<any>{
     return this.http.put(this.serverUrl+'/Post/'+ownerId+'/'+post.id, post);
   }
-  public createPost(post: Post) : Observable<any>{
-    return this.http.post(this.serverUrl+'/Post', post);
+  public createPost(post: any) : Observable<any>{
+    return this.http.post(this.serverUrl+'/Post/'+post.ownerId+'/'+post.forumId, post);
   }
 }

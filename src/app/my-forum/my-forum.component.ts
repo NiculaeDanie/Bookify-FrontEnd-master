@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateForumComponent } from '../create-forum/create-forum.component';
 import { Forum } from '../Dtos/Post';
 import { ForumService } from '../services/forum.service';
 
@@ -9,7 +11,7 @@ import { ForumService } from '../services/forum.service';
 })
 export class MyForumComponent implements OnInit {
   forums: Forum[] = [];
-  constructor(private forumService: ForumService) { }
+  constructor(private forumService: ForumService, private dialogService: MatDialog) { }
 
   ngOnInit(): void {
     this.forumService.getMy().subscribe(
@@ -17,6 +19,20 @@ export class MyForumComponent implements OnInit {
         this.forums = response;
       }
     );
+  }
+
+  public openDialog(): void {
+    let dialogRef = this.dialogService.open(CreateForumComponent, {
+      height: '500px',
+      width: '800px'
+    });
+
+    dialogRef.afterClosed().subscribe( result => {
+      let form = { name: result.value['title'], description: result.value['description'], price: result.value['price'], ownerId: localStorage.getItem('id')};
+      this.forumService.createForum(form).subscribe((result: Forum) => {
+          this.forums.concat(result);
+      });
+    });
   }
 
 }

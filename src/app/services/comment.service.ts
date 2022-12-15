@@ -19,7 +19,7 @@ export class CommentService {
   public updateComment(ownerId: string, comment: Comment): Observable<any>{
     return this.http.put(this.serverUrl+'/Comment/' + ownerId + '/' + comment.id, comment);
   }
-  public createComment(comment: Comment) : Observable<any>{
-    return this.http.post(this.serverUrl+'/Comment', comment);
+  public createComment(comment: any) : Observable<any>{
+    return this.http.post(this.serverUrl+'/Comment/'+comment.ownerId+'/'+comment.postId, comment);
   }
 }

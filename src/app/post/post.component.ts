@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Post, Comment } from '../Dtos/Post';
 import { CommentService } from '../services/comment.service';
@@ -14,9 +15,11 @@ export class PostComponent implements OnInit {
   postId: string = '';
   post?: Post;
   comments: Comment[] = [];
-
+  commentForm = new FormGroup({
+    comment: new FormControl('', Validators.required)
+  });
   constructor(private route: ActivatedRoute, private postService: PostService, private commentService: CommentService) { }
-
+  
   ngOnInit(): void {
     this.currentUser = localStorage.getItem('id')!;
     this.postId = this.route.snapshot.paramMap.get('id')!;
@@ -42,6 +45,13 @@ export class PostComponent implements OnInit {
         });
       }
     )
+  }
+
+  public submit(): void {
+    let comment = {text: this.commentForm.value['comment'], ownerId: this.currentUser, postId: this.postId};
+    this.commentService.createComment(comment).subscribe(() => {
+      this.ngOnInit();
+    })
   }
 
 }

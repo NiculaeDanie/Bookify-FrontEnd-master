@@ -10,3 +10,9 @@ mat-card{
     flex-direction: row;
     cursor: pointer;
 }
+.sticky{
+    position: fixed;
+    bottom: 2px;
+    right: 2px;
+    z-index: 2;
+}

@@ -19,6 +19,8 @@ import { AllForumComponent } from './all-forum/all-forum.component';
 import { MyForumComponent } from './my-forum/my-forum.component';
 import { ForumComponent } from './forum/forum.component';
 import { PostComponent } from './post/post.component';
+import { CreateForumComponent } from './create-forum/create-forum.component';
+import { CreatePostComponent } from './create-post/create-post.component';
  
 
 @NgModule({
@@ -31,7 +33,9 @@ import { PostComponent } from './post/post.component';
     AllForumComponent,
     MyForumComponent,
     ForumComponent,
-    PostComponent
+    PostComponent,
+    CreateForumComponent,
+    CreatePostComponent
   ],
   imports: [
     RouterModule,

@@ -28,7 +28,7 @@ export class ForumService {
   public updateForum(ownerId: string,Forum: Forum): Observable<any>{
     return this.http.put(this.serverUrl+'/Forum/'+ownerId+'/'+Forum.id, Forum);
   }
-  public createForum(Forum: Forum) : Observable<any>{
-    return this.http.post(this.serverUrl+'/Forum', Forum);
+  public createForum(Forum: any) : Observable<Forum>{
+    return this.http.post<Forum>(this.serverUrl+'/Forum', Forum);
   }
 }
